@@ -46,7 +46,7 @@ backupsEnabled: true
 snapshotsEnabled: true
 deployRestic: true
 
-restic
+restic:
   priorityClassName: false
 
 serviceAccount:
