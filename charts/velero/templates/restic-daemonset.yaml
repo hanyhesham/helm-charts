@@ -31,7 +31,7 @@ spec:
     spec:
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
       securityContext:
-        privileged: true
+        allowPrivilegeEscalation: true
       {{- if .Values.restic.priorityClassName }}
       priorityClassName: {{ include "velero.restic.priorityClassName" . }}
       {{- end }}
