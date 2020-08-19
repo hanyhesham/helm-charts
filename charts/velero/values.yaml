@@ -45,3 +45,8 @@ credentials:
 backupsEnabled: true
 snapshotsEnabled: true
 deployRestic: false
+
+
+serviceAccount:
+  server:
+    create: false
