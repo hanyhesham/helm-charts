@@ -48,6 +48,7 @@ deployRestic: true
 
 restic:
   priorityClassName: false
+  podVolumePath: /data
 
 serviceAccount:
   server:
