@@ -44,7 +44,7 @@ credentials:
       aws_secret_access_key = minio123
 backupsEnabled: true
 snapshotsEnabled: true
-deployRestic: false
+deployRestic: true
 
 
 serviceAccount:
