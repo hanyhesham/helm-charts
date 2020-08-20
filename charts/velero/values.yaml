@@ -48,12 +48,8 @@ deployRestic: true
 
 restic:
   priorityClassName: false
-  podVolumePath: /data
   privileged: true
-  pvc:
-    name: restic
-    accessModes: ReadWriteOnce 
-    storage: 10Gi    
+  podVolumePath: "/var/lib/origin/openshift.local.volumes/pods"
 
 serviceAccount:
   server:
