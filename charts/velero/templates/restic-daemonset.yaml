@@ -42,8 +42,8 @@ spec:
             secretName: {{ include "velero.secretName" . }}
         {{- end }}
         - name: host-pods
-          hostPath:
-            path: {{ .Values.restic.podVolumePath }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.restic.pvc.name }}
         - name: scratch
           emptyDir: {}
         {{- if .Values.restic.extraVolumes }}
@@ -80,7 +80,6 @@ spec:
             {{- end }}
             - name: host-pods
               mountPath: /host_pods
-              mountPropagation: HostToContainer
             - name: scratch
               mountPath: /scratch
             {{- if .Values.restic.extraVolumeMounts }}
