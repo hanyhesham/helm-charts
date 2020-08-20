@@ -49,7 +49,7 @@ deployRestic: true
 restic:
   priorityClassName: false
   privileged: true
-  podVolumePath: /var/lib/kubelet/pods 
+  podVolumePath: /host_pods/ 
 
 serviceAccount:
   server:
