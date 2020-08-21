@@ -18,10 +18,6 @@ configuration:
       s3ForcePathStyle: true
       s3Url: http://minio.minio.svc:9000 
       publicUrl: https://minio-minio.apps.gcp.ocp.hhesham.com
-  volumeSnapshotLocation:
-    provider: aws
-    config: 
-      region: minio
 
 initContainers: 
    - name: velero-plugin-for-aws
@@ -30,7 +26,6 @@ initContainers:
      volumeMounts:
        - mountPath: /target
          name: plugins
-
 rbac:
   create: true
   clusterAdministrator: true
@@ -43,7 +38,7 @@ credentials:
       aws_access_key_id = minio
       aws_secret_access_key = minio123
 backupsEnabled: true
-snapshotsEnabled: true
+snapshotsEnabled: false
 deployRestic: true
 
 restic:
