@@ -1,0 +1,37 @@
+image:
+  repository: velero/velero
+  tag: v1.4.2
+  pullPolicy: IfNotPresent
+metrics:
+  enabled: true
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8085"
+    prometheus.io/path: "/metrics"
+installCRDs: true
+configuration:
+  provider: gcp
+  backupStorageLocation:
+    bucket: velero-hhesham 
+
+initContainers: 
+   - name: velero-plugin-for-gcp
+     image: velero/velero-plugin-for-gcp:v1.1.0
+     imagePullPolicy: IfNotPresent
+     volumeMounts:
+       - mountPath: /target
+         name: plugins
+rbac:
+  create: true
+  clusterAdministrator: true
+
+credentials:
+  useSecret: true
+  secretContents:
+backupsEnabled: true
+snapshotsEnabled: false
+deployRestic: false
+
+serviceAccount:
+  server:
+    create: false

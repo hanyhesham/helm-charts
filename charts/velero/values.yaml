@@ -1,51 +1,58 @@
 image:
   repository: velero/velero
-  tag: v1.4.2
+  tag: v1.3.1
+  digest: sha256:0c74f1d552ef25a4227e582f4c0e6b3db3402abe196595ee9442ceeb43b99696
   pullPolicy: IfNotPresent
+
+  - name: velero-plugin-for-gcp
+    image: velero/velero-plugin-for-gcp:v1.0.1
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
+
 metrics:
   enabled: true
+  scrapeInterval: 30s
+
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8085"
     prometheus.io/path: "/metrics"
-installCRDs: true
-configuration:
-  provider: aws
-  backupStorageLocation:
-    bucket: velero
-    config: 
-      region: minio
-      s3ForcePathStyle: true
-      s3Url: http://minio.minio.svc:9000 
-      publicUrl: https://minio-minio.apps.gcp.ocp.hhesham.com
 
-initContainers: 
-   - name: velero-plugin-for-aws
-     image: velero/velero-plugin-for-aws:v1.1.0
-     imagePullPolicy: IfNotPresent
-     volumeMounts:
-       - mountPath: /target
-         name: plugins
+  serviceMonitor:
+    enabled: false
+    additionalLabels: {}
+
+installCRDs: true
+
+configuration:
+  provider: gcp
+  backupStorageLocation:
+    name: default
+    bucket: velero-hhesham 
+
+  volumeSnapshotLocation:
+    name: default
+
+  logLevel: info
+  logFormat:
+
 rbac:
   create: true
   clusterAdministrator: true
 
-credentials:
-  useSecret: true
-  secretContents:
-    cloud: |
-      [default]
-      aws_access_key_id = minio
-      aws_secret_access_key = minio123
-backupsEnabled: true
-snapshotsEnabled: false
-deployRestic: true
-
-restic:
-  priorityClassName: false
-  privileged: true
-  podVolumePath: /var/lib/kubelet/pods 
-
 serviceAccount:
   server:
-    create: false
+    create: true
+    name:
+    annotations:
+
+credentials:
+  useSecret: true
+  existingSecret: credentials-velero
+
+backupsEnabled: true
+snapshotsEnabled: true
+
+deployRestic: false
