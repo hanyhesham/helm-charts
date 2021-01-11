@@ -2,7 +2,7 @@ pipeline {
     stages {
         stage('Remove Docker Image') {
             steps{
-                script {
+               script {
                    sh "echo hi"
             }
           }
