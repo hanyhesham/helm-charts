@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Remove Docker Image') {
             when {
-                expression { return params.current_status == "closed" && params.merged == true }
+                expression { return env.current_status == "closed" && env.merged == true }
             }
             steps{
                script {
