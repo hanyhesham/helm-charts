@@ -4,7 +4,7 @@ pipeline {
         stage('Remove Docker Image') {
             steps{
                script {
-                  echo 'hellopipeline: '+ env.current_status
+                 echo 'hellopipeline: '+ env.current_status
              }
          }
         }
