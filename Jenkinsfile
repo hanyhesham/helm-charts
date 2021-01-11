@@ -6,7 +6,7 @@ pipeline {
               script {
                    echo 'hellopipeline: '+ env.current_status
              }
-         }
+            }
         }
     }
 }
